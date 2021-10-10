@@ -1,0 +1,10 @@
+{% if snooples %}
+    <ul>
+    {% for time_clock_entry in snooples %}
+        <li>{{ time_clock_entry.id }}</li>
+    {% endfor %}
+    </ul>
+    <p>That's all the tces</p>
+{% else %}
+    <p>No tces are available.</p>
+{% endif %}

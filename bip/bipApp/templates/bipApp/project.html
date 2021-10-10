@@ -1,0 +1,10 @@
+{% if task_list %}
+    <ul>
+    {% for task in task_list %}
+        <li><a href="{% url 'bipApp:task' task.id %}">{{ task.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <p>That's all the tasks</p>
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
