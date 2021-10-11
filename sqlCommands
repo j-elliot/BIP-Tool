@@ -1,0 +1,357 @@
+INSERT INTO bipApp_receipt (
+	purchase_date, 
+	total, 
+	description, 
+	report_id, 
+	vendor_id
+) SELECT 
+purchasedate purchase_date, 
+total total, 
+description description, 
+1 report_id, 
+vendorID --> vendors.name --> bipApp_entity.name --> bipApp_entity.id --> bipApp_vendor.id
+FROM receipts;
+
+
+INSERT INTO bipApp_receipt (purchase_date, total, description, report_id, vendor_id) SELECT purchasedate purchase_date, total total, description description, report_id 1, vendorID
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+SELECT bipApp_entity.id, bipApp_entity.name, vendors.name, vendors.ID 
+FROM bipApp_entity 
+INNER JOIN vendors ON bipApp_entity.name=vendors.name;
+
+SELECT
+      COUNT(*)
+   FROM
+      Table1 
+         INNER JOIN Table3
+            ON Table1.DifferentKey = Table3.DifferentKey
+            INNER JOIN Table2
+               ON Table3.Key =Table2.Key
+               AND Table3.Key2 = Table2.Key2
+               
+               
+SELECT 
+bipApp_vendor.id, 
+bipApp_vendor.entity_id, 
+bipApp_entity.id, 
+bipApp_entity.name, 
+vendors.name, 
+vendors.ID
+FROM bipApp_vendor 
+INNER JOIN bipApp_entity on bipApp_vendor.entity_id=bipApp_entity.id
+INNER JOIN vendors ON bipApp_entity.name=vendors.name;
+
+
+SELECT 
+bipApp_vendor.id, 
+bipApp_vendor.entity_id, 
+bipApp_entity.id, 
+bipApp_entity.name, 
+vendors.name, 
+vendors.ID,
+receipts.vendorID,
+receipts.ID
+FROM bipApp_vendor 
+INNER JOIN bipApp_entity on bipApp_vendor.entity_id=bipApp_entity.id
+INNER JOIN vendors ON bipApp_entity.name=vendors.name
+INNER JOIN receipts ON vendors.ID=receipts.vendorID;
+
+SELECT 
+bipApp_vendor.id, 
+bipApp_vendor.entity_id, 
+bipApp_entity.id, 
+bipApp_entity.name, 
+vendors.name, 
+vendors.ID,
+receipts.vendorID,
+receipts.ID
+FROM receipts
+INNER JOIN vendors ON receipts.vendorID=vendors.ID
+INNER JOIN bipApp_entity ON vendors.name=bipApp_entity.name
+INNER JOIN bipApp_vendor ON bipApp_entity.id=bipApp_vendor.entity_id;
+
+INSERT INTO bipApp_receipt (
+purchase_date, 
+total, 
+description, 
+report_id, 
+vendor_id,
+receipt_status_id
+) SELECT 
+purchasedate purchase_date, 
+total total, 
+description description, 
+1 report_id, 
+bipApp_vendor.id vendor_id,
+3 receipt_status_id
+FROM receipts
+INNER JOIN vendors ON receipts.vendorID=vendors.ID
+INNER JOIN bipApp_entity ON vendors.name=bipApp_entity.name
+INNER JOIN bipApp_vendor ON bipApp_entity.id=bipApp_vendor.entity_id;
+
+INSERT INTO bipApp_item (
+id, 
+name,
+description,
+stock,
+cost,
+markup,
+reference,
+category_id,
+vendor_id,
+pub_date
+) SELECT 
+items.ID id, 
+items.name name,
+items.description description,
+items.stock stock,
+items.cost cost,
+items.markup markup,
+items.reference reference,
+items.categoryID category_id,
+bipApp_vendor.id vendor_id,
+now() pub_date
+FROM items
+INNER JOIN vendors ON items.supplierID=vendors.ID
+INNER JOIN bipApp_entity ON vendors.name=bipApp_entity.name
+INNER JOIN bipApp_vendor ON bipApp_entity.id=bipApp_vendor.entity_id;
+
+//this failed. I only got the first 42, the ones with supplier id not equal to null
+
+INSERT INTO bipApp_receipt_line_item (
+id,
+quantity,
+price,
+item_id,
+receipt_id
+) SELECT
+receiptlineitems.ID id,
+receiptlineitems.quantity quantity,
+receiptlineitems.price price,
+receiptlineitems.itemID item_id,
+receiptlineitems.receiptID receipt_id
+FROM receiptlineitems;
+
+INSERT INTO bipApp_item (
+id, 
+name,
+description,
+stock,
+cost,
+markup,
+reference,
+category_id,
+pub_date
+) SELECT 
+items.ID id, 
+items.name name,
+items.description description,
+items.stock stock,
+items.cost cost,
+items.markup markup,
+items.reference reference,
+items.categoryID category_id,
+now() pub_date
+FROM items
+WHERE items.ID > 42;
+
+INSERT INTO bipApp_invoice (
+id, 
+submitted_date,
+invoice_status_id,
+report_id,
+pub_date
+) SELECT 
+invoices.ID id, 
+invoices.submitteddate submitted_date,
+7 invoice_status_id,
+1 report_id,
+now() pub_date
+FROM invoices;
+
+INSERT INTO bipApp_invoice_line_item (
+id,
+price,
+quantity,
+invoice_id,
+item_id
+) SELECT
+invoicelineitems.ID id,
+invoicelineitems.price price,
+invoicelineitems.quantity quantity,
+invoicelineitems.invoiceID invoice_id,
+invoicelineitems.itemID item_id
+FROM invoicelineitems;
+
+
+INSERT INTO bipApp_entity (
+name,
+address,
+birthdate,
+children,
+city,
+companyname,
+country,
+email,
+fax,
+firstname,
+interests,
+lastname,
+middlename,
+mobile,
+phone,
+spouse,
+state,
+title,
+zip,
+pub_date
+) SELECT
+customers.name name,
+customers.address address,
+customers.birthdate birthdate,
+customers.children children,
+customers.city city,
+customers.companyname companyname,
+customers.country country,
+customers.email email,
+customers.fax fax,
+customers.firstname firstname,
+customers.interests interests,
+customers.lastname lastname,
+"" middlename,
+customers.mobile mobile,
+customers.phone phone,
+customers.spouse spouse,
+customers.state state,
+customers.title title,
+customers.zip zip,
+now() pub_date
+FROM customers;
+
+
+INSERT INTO bipApp_project (
+name,
+justification,
+goals,
+scope,
+start,
+end,
+owner_id,
+pub_date
+) SELECT
+projects.name name,
+projects.description justification,
+"The goal is to be a properly moved project with correct linking." goals,
+projects.scope scope,
+projects.begindate start,
+projects.enddate end,
+bipApp_entity.id owner_id,
+now() pub_date
+FROM projects
+INNER JOIN customers 
+ON projects.customerID=customers.ID
+INNER JOIN bipApp_entity
+ON customers.name=bipApp_entity.name
+INNER JOIN bipApp_customer
+on bipApp_entity.id=bipApp_customer.entity_id;
+
+projects.customerID --> customers.ID --> customers.name --> bipApp_entity.name --> bipApp_entity.id --> bipApp_customer.entity_id --> bipApp_customer.id
+
+SELECT projects.customerID, customers.ID, customers.name, bipApp_entity.name, bipApp_entity.id, bipApp_customer.entity_id, bipApp_customer.id
+FROM projects 
+INNER JOIN customers 
+ON projects.customerID=customers.ID
+INNER JOIN bipApp_entity
+ON customers.name=bipApp_entity.name
+INNER JOIN bipApp_customer
+on bipApp_entity.id=bipApp_customer.entity_id;
+
+
+INSERT INTO bipApp_task (
+name,
+description,
+start,
+end,
+assignee_id,
+project_id,
+pub_date
+) SELECT
+"Default Task" name,
+"This task serves as a placeholder to link other successor objects to their respective projects." description,
+now() start,
+now() end,
+32 assignee_id,
+bipApp_project.id project_id,
+now() pub_date
+FROM bipApp_project;
+
+
+INSERT INTO bipApp_report (
+subject,
+body,
+author_id,
+task_id,
+pub_date
+) SELECT
+"Default Report" name,
+"This report serves as a placeholder to link other successor objects to their respective tasks." description,
+32 author_id,
+bipApp_task.id task_id,
+now() pub_date
+FROM bipApp_task;
+
+UPDATE bipApp_invoice 
+INNER JOIN invoices
+ON bipApp_invoice.id=invoices.ID
+INNER JOIN projects
+ON invoices.projectID=projects.ID
+INNER JOIN bipApp_project
+ON projects.name=bipApp_project.name
+INNER JOIN bipApp_task
+ON bipApp_project.id=bipApp_task.project_id
+INNER JOIN bipApp_report
+ON bipApp_task.id=bipApp_report.task_id
+SET report_id=bipApp_report.id;
+
+invoices.projectID --> projects.ID -->projects.name --> bipApp_project.name --> bipApp_project.id --> bipApp_task.project_id --> bipApp_task.id -->bipApp_report.task_id --> bipApp_report.id
+
+SELECT bipApp_invoice.id, invoices.ID, projects.ID, bipApp_project.name, bipApp_project.id, bipApp_task.id, bipApp_report.id
+FROM bipApp_invoice
+INNER JOIN invoices
+ON bipApp_invoice.id=invoices.ID
+INNER JOIN projects
+ON invoices.projectID=projects.ID
+INNER JOIN bipApp_project
+ON projects.name=bipApp_project.name
+INNER JOIN bipApp_task
+ON bipApp_project.id=bipApp_task.project_id
+INNER JOIN bipApp_report
+ON bipApp_task.id=bipApp_report.task_id;
+
+
+
+UPDATE bipApp_report 
+INNER JOIN bipApp_task
+ON bipApp_report.task_id=bipApp_task.id
+INNER JOIN bipApp_project
+ON bipApp_task.project_id=bipApp_project.id
+SET bipApp_report.subject=CONCAT("Default report for project: ", bipApp_project.name);
+
+entity.name --> entity.id --> project.owner_id --> project.id --> task.project_id --> task.id --> report.task_id
+--> report.id --> invoice.report_id --> invoice.id
+
+SELECT bipApp_entity.name
+FROM bipApp_invoice
+INNER JOIN bipApp_report
+ON bipApp_invoice.report_id=bipApp_report.id
+INNER JOIN bipApp_task
+ON bipApp_report.task_id=bipApp_task.id
+INNER JOIN bipApp_project
+ON bipApp_task.project_id=bipApp_project.id
+INNER JOIN bipApp_entity
+ON bipApp_project.owner_id=bipApp_entity.id
+

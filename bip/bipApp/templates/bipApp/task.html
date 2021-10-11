@@ -1,0 +1,10 @@
+{% if report_list %}
+    <ul>
+    {% for report in report_list %}
+        <li><a href="{% url 'bipApp:report' report.id %}">{{ report.subject }}</a></li>
+    {% endfor %}
+    </ul>
+    <p>That's all the reports</p>
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}

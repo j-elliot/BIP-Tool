@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bipApp/style.css' %}">
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" name="run_script">Run script</button>
+</form>
+
+
+{% if project_list %}
+    <ul>
+    {% for project in project_list %}
+        <li><a href="{% url 'bipApp:project' project.id %}">{{ project.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <p>That's all the projects</p>
+{% else %}
+    <p>No projects are available.</p>
+{% endif %}
