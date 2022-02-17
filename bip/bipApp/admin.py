@@ -57,6 +57,7 @@ class ProjectAdmin(admin.ModelAdmin):
                 'communication',
                 'resources',
                 'account',
+                'path',
             ]
         }),
         ('Date information', {'fields':
