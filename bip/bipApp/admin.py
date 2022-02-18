@@ -69,7 +69,7 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [TaskInLine]
     list_display = ('name',  )
     readonly_fields = ('pub_date', )
-    list_filter = ['pub_date','owner']
+    list_filter = ['complete','pub_date','owner']
     search_fields = ['name']
 
 
@@ -86,7 +86,7 @@ class TaskAdmin(admin.ModelAdmin):
     inlines = [ReportInLine]
     list_display = ('name', )
     readonly_fields = ('pub_date', )
-    list_filter = ['pub_date']
+    list_filter = ['complete','pub_date']
     search_fields = ['name']
 
 class TCEInLine(admin.TabularInline):
