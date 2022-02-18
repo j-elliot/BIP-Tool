@@ -162,6 +162,7 @@ class Project(models.Model):
     end = models.DateTimeField('end date', blank=True, null=True)
     account = models.ForeignKey(Account, null=True, on_delete=models.CASCADE, blank=True)
     path = models.CharField(max_length=255, null=True)
+    complete = models.BooleanField(blank=True, null=True, default=False)
 
     def __str__(self):
         return self.name
@@ -199,6 +200,7 @@ class Task(models.Model):
     assignee = models.ForeignKey(Entity, on_delete=models.CASCADE)
     opening = models.BooleanField(blank=True, null=True, default=False)
     closing = models.BooleanField(blank=True, null=True, default=False)
+    complete = models.BooleanField(blank=True, null=True, default=False)
 
     def __str__(self):
         return self.name
