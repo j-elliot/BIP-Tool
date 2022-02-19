@@ -57,6 +57,7 @@ class ProjectAdmin(admin.ModelAdmin):
                 'communication',
                 'resources',
                 'account',
+                'path',
             ]
         }),
         ('Date information', {'fields':
@@ -66,9 +67,9 @@ class ProjectAdmin(admin.ModelAdmin):
             ], 'classes': ['collapse']}),
     ]
     inlines = [TaskInLine]
-    list_display = ('name',  )
+    list_display = ('name', 'complete', )
     readonly_fields = ('pub_date', )
-    list_filter = ['pub_date','owner']
+    list_filter = ['complete','pub_date','owner']
     search_fields = ['name']
 
 
@@ -83,9 +84,9 @@ class TaskAdmin(admin.ModelAdmin):
         ('Date information', {'fields': ['pub_date', 'start', 'end'], 'classes': ['collapse']}),
     ]
     inlines = [ReportInLine]
-    list_display = ('name', )
+    list_display = ('name', 'complete', )
     readonly_fields = ('pub_date', )
-    list_filter = ['pub_date']
+    list_filter = ['complete','pub_date']
     search_fields = ['name']
 
 class TCEInLine(admin.TabularInline):

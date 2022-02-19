@@ -75,10 +75,10 @@ class Entity(models.Model):
     mobile = models.CharField(max_length=255, null=True, blank=True)
     fax = models.CharField(max_length=255, null=True, blank=True)
     email = models.CharField(max_length=255, null=True, blank=True)
-    interests = models.CharField(max_length=255, null=True, blank=True)
-    birthdate = models.DateField('birthday', null=True, blank=True)
-    spouse = models.CharField(max_length=255, null=True, blank=True)
-    children = models.TextField(null=True, blank=True)
+    interests_dep = models.CharField(max_length=255, null=True, blank=True)
+    birthdate_dep = models.DateField('birthday', null=True, blank=True)
+    spouse_dep = models.CharField(max_length=255, null=True, blank=True)
+    children_dep = models.TextField(null=True, blank=True)
     pub_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
 
     def __str__(self):
@@ -104,6 +104,10 @@ class Customer(models.Model):
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey(Customer_Status, on_delete=models.CASCADE)
+    interest = models.CharField(max_length=255,blank=True, null=True)
+    birthdate = models.DateField('birthdate', blank=True, null=True)
+    spouse = models.ForeignKey(Entity, related_name='spouse', on_delete=models.CASCADE, blank=True, null=True)
+    path = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.entity.name
@@ -157,6 +161,8 @@ class Project(models.Model):
     start = models.DateTimeField('start date', blank=True, null=True)
     end = models.DateTimeField('end date', blank=True, null=True)
     account = models.ForeignKey(Account, null=True, on_delete=models.CASCADE, blank=True)
+    path = models.CharField(max_length=255, null=True)
+    complete = models.BooleanField(blank=True, null=True, default=False)
 
     def __str__(self):
         return self.name
@@ -194,6 +200,7 @@ class Task(models.Model):
     assignee = models.ForeignKey(Entity, on_delete=models.CASCADE)
     opening = models.BooleanField(blank=True, null=True, default=False)
     closing = models.BooleanField(blank=True, null=True, default=False)
+    complete = models.BooleanField(blank=True, null=True, default = False)
 
     def __str__(self):
         return self.name
