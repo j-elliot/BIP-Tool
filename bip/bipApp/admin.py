@@ -58,6 +58,7 @@ class ProjectAdmin(admin.ModelAdmin):
                 'resources',
                 'account',
                 'path',
+                'complete',
             ]
         }),
         ('Date information', {'fields':
@@ -80,7 +81,7 @@ class ReportInLine(admin.TabularInline):
 
 class TaskAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['name', 'description', 'assignee', 'project', 'opening', 'closing']}),
+        (None,               {'fields': ['name', 'description', 'assignee', 'project', 'complete', 'opening', 'closing']}),
         ('Date information', {'fields': ['pub_date', 'start', 'end'], 'classes': ['collapse']}),
     ]
     inlines = [ReportInLine]
