@@ -198,8 +198,8 @@ class Task(models.Model):
     start = models.DateTimeField('start date')
     end = models.DateTimeField('end date')
     assignee = models.ForeignKey(Entity, on_delete=models.CASCADE)
-    opening = models.BooleanField(blank=True, null=True, default=False)
-    closing = models.BooleanField(blank=True, null=True, default=False)
+    #opening = models.BooleanField(blank=True, null=True, default=False)
+    #closing = models.BooleanField(blank=True, null=True, default=False)
     complete = models.BooleanField(blank=True, null=True, default = False)
 
     def __str__(self):
@@ -249,8 +249,8 @@ class Report(models.Model):
     body = models.TextField(blank=True, null=True)
     pub_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
     sub_date = models.DateField('date referenced', blank=True)
-    opening = models.BooleanField(blank=True, null=True, default=False)
-    closing = models.BooleanField(blank=True, null=True, default=False)
+    #opening = models.BooleanField(blank=True, null=True, default=False)
+    #closing = models.BooleanField(blank=True, null=True, default=False)
 
     def __str__(self):
         return self.subject

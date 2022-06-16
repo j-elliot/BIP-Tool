@@ -21,8 +21,15 @@ First, my local test database had 'complete' columns in projects and tasks, my m
 Next, changed the model to remove opening and closing from tasks and reports. I made migrations, and then I migrated. I checked the local database and it reflected those changes.
 
 I added the following line to settings.py: DATA_UPLOAD_MAX_NUMBER_FIELDS = None
-As I understand, this opens the possibility of dos attacks, or rather disables one protection against them. Seeing as my defenses are fuck all at the moment, we'll just put a pin in that one. 
+As I understand, this opens the possibility of dos attacks, or rather disables one protection against them. Seeing as my defenses are fuck all at the moment, we'll just put a pin in that one.
 
-So fun news, somehow production didn't match github. So I have to learn how to rollback (is that the right word) my local dev version, push production to git, and then pull git to dev. AAAAHAHHAHAHHAHHHHHH!!!!! Have I mentioned I'm not good at git. 
+So fun news, somehow production didn't match github. So I have to learn how to rollback (is that the right word) my local dev version, push production to git, and then pull git to dev. AAAAHAHHAHAHHAHHHHHH!!!!! Have I mentioned I'm not good at git.
 
 I want this record, so I will back it up and then attempt to preserve it correctly.
+
+2022-06-15
+Okay, so a bunch of mess trying to get things lined up. I'm not sure what all happened, but I think a big part of it was that I was on master instead of main, and I don't know what the difference is or why that mattered.
+
+Reimplemented the changes I lost in that mess.
+
+I haven't figured out how to make inlines sortable by user choice of columns, but I made inline reports and tasks to default sort by date, so better than nothing. Now we save, make migrations, migrate, and see if we can make this shit work. 

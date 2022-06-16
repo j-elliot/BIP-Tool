@@ -39,6 +39,7 @@ class TaskInLine(admin.TabularInline):
     model = Task
     show_change_link = True
     extra = 3
+    ordering = ('start', 'end')
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -78,10 +79,11 @@ class ReportInLine(admin.TabularInline):
     model = Report
     show_change_link = True
     extra = 3
+    ordering = ('sub_date',)
 
 class TaskAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['name', 'description', 'assignee', 'project', 'complete', 'opening', 'closing']}),
+        (None,               {'fields': ['name', 'description', 'assignee', 'project', 'complete']}),
         ('Date information', {'fields': ['pub_date', 'start', 'end'], 'classes': ['collapse']}),
     ]
     inlines = [ReportInLine]
@@ -102,7 +104,7 @@ class InvoiceInLine(admin.TabularInline):
 
 class ReportAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['sub_date', 'subject', 'body', 'author', 'task', 'opening', 'closing']}),
+        (None,               {'fields': ['sub_date', 'subject', 'body', 'author', 'task']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     inlines = [InvoiceInLine, TCEInLine]
