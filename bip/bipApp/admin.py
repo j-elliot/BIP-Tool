@@ -110,7 +110,7 @@ class ReportAdmin(admin.ModelAdmin):
     inlines = [InvoiceInLine, TCEInLine]
     list_display = ('sub_date', 'subject',  'author', 'task')
     readonly_fields = ('pub_date', )
-    list_filter = ['pub_date', 'sub_date']
+    list_filter = ['author', 'pub_date', 'sub_date']
     search_fields = ['subject', 'sub_date']
 
 
